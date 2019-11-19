@@ -45,10 +45,9 @@ async function init () {
             await miro.showErrorNotification(`Unknown command ${commandText}`)
             return
         }
+        const command = commands[commandName]
         // Remaining string will be treated as command argument if present
         const arg = commandText.slice(commandName.length).trim()
-
-        const command = commands[commandName]
         await Promise.resolve(command.action(...(arg) ? [arg] : []))
 
         if (!command.preventModalClose) {
