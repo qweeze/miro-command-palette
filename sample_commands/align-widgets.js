@@ -2,7 +2,7 @@
 * Auto align widgets to grid
 */
 const widgets = await miro.board.selection.get()
-if (!widgets) {
+if (widgets.length < 2) {
     await miro.showErrorNotification('At least 2 widgets must be selected')
     return
 }
@@ -40,8 +40,8 @@ function calculatePositions(widgets) {
 
     // preserving common centroid of selected widgets
     const [centerX, centerY] = [
-        widgets.map(w => w.x).reduce((val, acc) => acc + val) / widgets.length,
-        widgets.map(w => w.y).reduce((val, acc) => acc + val) / widgets.length
+        widgets.map(w => w.x).reduce((acc, val) => acc + val) / widgets.length,
+        widgets.map(w => w.y).reduce((acc, val) => acc + val) / widgets.length
     ]
 
     const padding = 0.1 * (maxWidth + maxHeight)

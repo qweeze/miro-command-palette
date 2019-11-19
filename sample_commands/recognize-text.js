@@ -36,13 +36,13 @@ async function recognizeImage(imageUrl) {
     )
     const resp = await fetch(`${apiUrl}?${urlParams}`, { mode: 'no-cors' })
     if (!resp.ok) {
-        throw Error('Could not process image')
+        throw new Error('Could not process image')
     }
     const result = await resp.json()
 
     const text = (result.ParsedResults) ? result.ParsedResults[0].ParsedText : null
     if (!text) {
-        throw error('Could not recognize text')
+        throw new Error('Could not recognize text')
     }
     return text
 }

@@ -1,5 +1,7 @@
+let commands = {}
+
 async function init () {
-    const commands = await loadCommands()
+    commands = await loadCommands()
     const palette = document.getElementById('palette')
 
     palette.addEventListener('input', (event) => {
@@ -21,12 +23,12 @@ async function init () {
 
     palette.focus()
 
+    /* A poor man's auto completion via text range selection */
     function autocomplete (text) {
         const commandName = Object.keys(commands)
             .find(cmdName => cmdName.startsWith(text.toLowerCase()))
 
         if (commandName) {
-            // A poor man's auto completion via text range selection
             const completion = commandName.slice(text.length)
             const inputLength = palette.value.length
             palette.value = `${palette.value}${completion}`
@@ -43,14 +45,11 @@ async function init () {
             await miro.showErrorNotification(`Unknown command ${commandText}`)
             return
         }
-        // Remaining string will be treated as command arguments if present
-        const args = commandText
-            .slice(commandName.length)
-            .split(' ')
-            .filter(arg => arg.length > 0)
+        // Remaining string will be treated as command argument if present
+        const arg = commandText.slice(commandName.length).trim()
 
         const command = commands[commandName]
-        await Promise.resolve(command.action(...args))
+        await Promise.resolve(command.action(...(arg) ? [arg] : []))
 
         if (!command.preventModalClose) {
             await miro.board.ui.closeModal()
@@ -66,7 +65,10 @@ async function loadCommands () {
         try {
             cmd.action = new Function(funcSrc)
         } catch (error) {
-            console.log(`An error occurred while loading command ${cmd.name}: ${error}`)
+            cmd.action = async () => {
+                await miro.showErrorNotification(`Could not load command ${cmd.name}`)
+            }
+            console.error(`An error occurred while loading command ${cmd.name}: ${error}`)
         }
     })
 
@@ -107,6 +109,23 @@ const builtInCommands = [
                 await miro.showErrorNotification('Could not remove command')
             }
         }
+    },
+    {
+        name: 'Help',
+        description: 'Show description of a command',
+        async action (cmdName) {
+            if (!cmdName) {
+                await miro.showErrorNotification('Provide a command name')
+                return
+            }
+            const command = commands[cmdName]
+            if (!command) {
+                await miro.showErrorNotification(`Command ${cmdName} not found`)
+                return
+            }
+            await miro.showNotification(command.description)
+        },
+        preventModalClose: true
     }
 ]
 

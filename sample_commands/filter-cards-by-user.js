@@ -8,10 +8,9 @@ const [myUserId, allCards] = await Promise.all([
 const _storeKey = 'filter-cards-by-current-user'
 const isFilterApplied = () => (localStorage.getItem(_storeKey) === true)
 const markFilterApplied = () => localStorage.setItem(_storeKey, true)
-const unmarkFilterApplied = () => localStorage.setItem(_storeKey, false)
+const unmarkFilterApplied = () => localStorage.removeItem(_storeKey)
 
 if (!isFilterApplied()) {
-    // no existing filter applied
     const cardsToHide = allCards
         .filter(card => !card.assignee || card.assignee.userId !== myUserId)
 
