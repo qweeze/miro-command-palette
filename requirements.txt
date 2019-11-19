@@ -1,0 +1,2 @@
+sanic==19.9.0
+environs==6.1.0

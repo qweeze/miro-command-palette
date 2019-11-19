@@ -1,0 +1,25 @@
+__pycache__
+.git
+.cache
+.idea
+.vscode
+dist/
+.mypy_cache/
+.pytest_cache/
+.coverage
+
+*.py[cod]
+venv/
+
+.DS_Store
+
+# local env files
+.env.local
+
+node_modules
+
+# local certs
+bot.now.im
+
+# database file
+commands.db
