@@ -19,5 +19,5 @@ async function removeCommand (cmdName) {
     } else {
         await miro.showErrorNotification('Could not remove command')
     }
-    await miro.board.ui.openModal('https://bot.now.im/commands-list')
+    await miro.board.ui.openModal('commands-list')
 }

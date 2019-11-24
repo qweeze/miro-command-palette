@@ -13,11 +13,12 @@
 <body>
     <div class="container">
         <form onsubmit="return saveCommand()">
-            <h3 class="miro-h3">{{ 'Edit command' if command != None else 'New command'}}</h3>
+            <h3 class="miro-h3">{{ 'Edit command' if command else 'New command'}}</h3>
             <input name="command" type="text" required="true" class="miro-input miro-input--primary"
                 placeholder="Command name" autocomplete="off" value="{{ command.name if command else '' }}">
             <input name="description" type="text" class="miro-input miro-input--primary"
-                placeholder="Command description" autocomplete="off" value="{{ command.description if command else '' }}">
+                placeholder="Command description" autocomplete="off"
+                value="{{ command.description if command else '' }}">
             <div id="editor">{{ command.code if command else '// Code editor' }}</div>
             <input class="miro-btn miro-btn--primary miro-btn--medium" type="submit" value="Save">
         </form>
