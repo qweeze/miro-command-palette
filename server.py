@@ -3,7 +3,9 @@ import dbm
 import pathlib
 import shelve
 import ssl
+import typing as t
 
+import jinja2
 from sanic import Sanic
 from sanic import response
 from sanic import exceptions
@@ -16,7 +18,12 @@ app.static('/static', './static')
 
 INDEX_PAGE = pathlib.Path('./static/index.html').read_text()
 DB_FILE = 'commands.db'
+
 _db_lock = asyncio.Lock()
+_templates: t.Dict[str, jinja2.Template] = {
+    p.stem: jinja2.Template(p.read_text())
+    for p in pathlib.Path('templates').glob('*.html')
+}
 
 
 @app.exception(exceptions.NotFound)
@@ -27,6 +34,32 @@ async def ignore_404s(request, exception):
 @app.route('/index.html')
 async def index(request):
     return response.html(INDEX_PAGE)
+
+
+@app.get('commands-list')
+async def commands_list(request):
+    try:
+        with shelve.open(DB_FILE, 'r') as db:
+            commands = list(db.values())
+    except dbm.error:
+        commands = []
+
+    html = _templates['commands-list'].render(commands=commands)
+    return response.html(html)
+
+
+@app.get('new-command')
+async def new_command(request):
+    html = _templates['edit-command'].render(command=None)
+    return response.html(html)
+
+
+@app.get('edit-command/<command_name>')
+async def edit_command(request, command_name):
+    with shelve.open(DB_FILE, 'r') as db:
+        command = db.get(command_name)
+    html = _templates['edit-command'].render(command=command)
+    return response.html(html)
 
 
 @app.post('/save-command')

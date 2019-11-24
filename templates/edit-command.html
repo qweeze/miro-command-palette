@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" charset="utf-8">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="https://miro.com/app/static/styles.1.0.css" />
+    <script type="text/javascript" src="https://miro.com/app/static/sdk.1.1.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/edit-command.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.6/ace.js" type="text/javascript"></script>
+    <script src="/static/js/edit-command.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <div class="container">
+        <form onsubmit="return saveCommand()">
+            <h3 class="miro-h3">{{ 'Edit command' if command != None else 'New command'}}</h3>
+            <input name="command" type="text" required="true" class="miro-input miro-input--primary"
+                placeholder="Command name" autocomplete="off" value="{{ command.name if command else '' }}">
+            <input name="description" type="text" class="miro-input miro-input--primary"
+                placeholder="Command description" autocomplete="off" value="{{ command.description if command else '' }}">
+            <div id="editor">{{ command.code if command else '// Code editor' }}</div>
+            <input class="miro-btn miro-btn--primary miro-btn--medium" type="submit" value="Save">
+        </form>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" charset="utf-8">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="https://miro.com/app/static/styles.1.0.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/css/commands-list.css">
+    <script type="text/javascript" src="https://miro.com/app/static/sdk.1.1.js"></script>
+    <script type="text/javascript" src="/static/js/commands-list.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <h3 class="miro-h3">Commands list</h3>
+        <div class="table">
+            <table>
+                <tr>
+                    <th>Command</th>
+                    <th>Description</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                {% for command in commands %}
+                <tr>
+                    <td><kbd>{{ command.name }}</kbd></td>
+                    <td>{{ command.description }}</td>
+                    <td title="Edit command">
+                        <i class="fa fa-edit" style="font-size:24px;" onclick="editCommand('{{ command.name }}')"></i>
+                    </td>
+                    <td>
+                        <i class="fa fa-trash" style="font-size:24px;"
+                            onclick="removeCommand('{{ command.name }}')"></i>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="footer">
+            <button class="miro-btn miro-btn--primary miro-btn--medium" onclick="newCommand()">New command</button>
+        </div>
+    </div>
+</body>
+
+</html>

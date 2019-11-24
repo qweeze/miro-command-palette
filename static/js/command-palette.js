@@ -83,46 +83,15 @@ const builtInCommands = [
         name: 'New command',
         description: 'Create a new command',
         async action () {
-            await miro.board.ui.openModal('static/new-command.html')
+            await miro.board.ui.openModal('new-command')
         },
         preventModalClose: true
     },
     {
-        name: 'Remove command',
-        description: 'Remove a command by name',
-        async action (cmdName) {
-            if (!cmdName) {
-                await miro.showErrorNotification('Provide a command name')
-                return
-            }
-            const resp = await fetch('/remove-command', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name: cmdName })
-            })
-            if (resp.ok) {
-                await miro.showNotification(`Command ${cmdName} removed`)
-            } else if (resp.status === 404) {
-                await miro.showErrorNotification(`Command ${cmdName} not found`)
-            } else {
-                await miro.showErrorNotification('Could not remove command')
-            }
-        }
-    },
-    {
-        name: 'Help',
-        description: 'Show description of a command',
-        async action (cmdName) {
-            if (!cmdName) {
-                await miro.showErrorNotification('Provide a command name')
-                return
-            }
-            const command = commands[cmdName]
-            if (!command) {
-                await miro.showErrorNotification(`Command ${cmdName} not found`)
-                return
-            }
-            await miro.showNotification(command.description)
+        name: 'Manage commands',
+        description: 'Show commands list',
+        async action () {
+            await miro.board.ui.openModal('commands-list')
         },
         preventModalClose: true
     }

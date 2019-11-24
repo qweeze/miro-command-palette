@@ -1,5 +1,14 @@
+body {
+    background-color: transparent;
+    border-radius: 16px;
+}
+
 .container {
     padding: 20px;
+}
+
+h3 {
+    text-align: center;
 }
 
 #editor {
@@ -18,4 +27,5 @@ input {
 
 input[type=submit] {
     width: auto;
+    margin-top: 12px;
 }
