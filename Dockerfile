@@ -6,4 +6,4 @@ RUN pip install --upgrade pip -r requirements.txt
 COPY . .
 EXPOSE 443
 
-ENTRYPOINT ["python", "server.py"]
+ENTRYPOINT ["python", "-m", "src"]
