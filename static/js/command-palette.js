@@ -80,7 +80,7 @@ async function loadCommands () {
 
 const builtInCommands = [
     {
-        name: 'New command',
+        name: 'New',
         description: 'Create a new command',
         async action () {
             await miro.board.ui.openModal('new-command')
@@ -88,7 +88,7 @@ const builtInCommands = [
         preventModalClose: true
     },
     {
-        name: 'Manage commands',
+        name: 'Manage',
         description: 'Show commands list',
         async action () {
             await miro.board.ui.openModal('commands-list')

@@ -12,8 +12,8 @@ A plugin for [miro](https://miro.com) collaborative board that empowers users to
 ### Usage
 - [Install](https://miro.com/oauth/authorize/?response_type=code&client_id=3074457347007917373&redirect_uri=https://bot.now.im/oauth) plugin
 - Fire up command palette by clicking its icon on board's bottom toolbar
-- Enter `new` command to open command editor
-- To edit, view and delete your commands use `manage` command
+- Enter <kbd>new</kbd> command to open command editor
+- To edit, view and delete your commands use <kbd>manage</kbd> command
 
 ### Examples
 - [Auto aligning widgets to grid](sample_commands/align-widgets.js)
