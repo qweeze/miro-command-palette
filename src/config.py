@@ -22,3 +22,9 @@ PORT = env.int('PORT', default=8000)
 DB_FILE = _relpath(env.str('DB_FILE', './commands.db'))
 STATIC_DIR = _relpath(env.str('STATIC_DIR', '../static'))
 TEMPLATES_DIR = _relpath(env.str('TEMPLATES_DIR', '../templates'))
+
+APP_SECRET = env.str('APP_SECRET')
+REDIRECT_URI = env.str('REDIRECT_URI')
+
+MIRO_BASE_URL = env.str('MIRO_BASE_URL', default='https://miro.com')
+MIRO_API_BASE_URL = env.str('MIRO_API_BASE_URL ', default='https://api.miro.com/v1')

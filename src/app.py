@@ -1,6 +1,7 @@
 import pathlib
 import typing as t
 
+import aiohttp
 import jinja2
 from sanic import Sanic
 from sanic import response
@@ -35,6 +36,23 @@ async def ignore_404s(request, exception):
 @app.route('/index.html')
 async def index(request):
     return response.html(INDEX_PAGE)
+
+
+@app.route('/oauth')
+async def oauth(request):
+    async with aiohttp.ClientSession() as session:
+        await session.post(
+            f'{config.MIRO_API_BASE_URL}/oauth/token',
+            params=dict(
+                grant_type='authorization_code',
+                client_id=request.raw_args['client_id'],
+                code=request.raw_args['code'],
+                client_secret=config.APP_SECRET,
+                redirect_uri=config.REDIRECT_URI,
+            )
+        )
+
+    return response.redirect(f'{config.MIRO_BASE_URL}/app/dashboard')
 
 
 @app.get('commands-list')
