@@ -6,7 +6,7 @@ A plugin for [miro](https://miro.com) collaborative board that empowers users to
     <img src="docs/screenshot2.png" width="49.5%" alt="accessibility text">
 </p>
 
-[Demo video](docs/demo.webm)
+[Demo video](https://raw.githubusercontent.com/qweeze/miro-command-palette/master/docs/demo.webm)
 
 ### Usage
 
