@@ -40,6 +40,12 @@ async def index(request):
 
 @app.route('/oauth')
 async def oauth(request):
+    if not all(
+        arg in request.raw_args
+        for arg in ('client_id', 'code')
+    ):
+        raise exceptions.InvalidUsage('Required parameters missing')
+
     async with aiohttp.ClientSession() as session:
         await session.post(
             f'{config.MIRO_API_BASE_URL}/oauth/token',
