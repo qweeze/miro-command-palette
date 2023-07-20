@@ -1,4 +1,4 @@
 sanic==19.9.0
 environs==6.1.0
 jinja2==2.11.3
-aiohttp==3.7.4
+aiohttp==3.8.5
